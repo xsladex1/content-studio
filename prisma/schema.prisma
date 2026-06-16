@@ -1,0 +1,212 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider  = "postgresql"
+  url       = env("DATABASE_URL")
+  directUrl = env("DIRECT_URL")
+}
+
+// ─────────────────────────────────────────────
+// USER — suporte futuro a múltiplos usuários
+// Por enquanto: um registro padrão criado no seed
+// ─────────────────────────────────────────────
+model User {
+  id        String   @id @default(cuid())
+  email     String   @unique
+  nome      String
+  avatarUrl String?
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  projetos  Projeto[]
+  conteudos Conteudo[]
+}
+
+// ─────────────────────────────────────────────
+// NICHO — categoriza o tipo de conteúdo
+// Ex: afiliados, educacional, lifestyle, tech
+// ─────────────────────────────────────────────
+model Nicho {
+  id        String   @id @default(cuid())
+  nome      String   @unique
+  descricao String?
+  icone     String?
+  ativo     Boolean  @default(true)
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  projetos        Projeto[]
+  promptTemplates PromptTemplate[]
+}
+
+// ─────────────────────────────────────────────
+// PROJETO — generaliza "Produto"
+// tipo: afiliado | educacional | lifestyle | marca | entretenimento
+// status: ativo | pausado | arquivado
+// ─────────────────────────────────────────────
+model Projeto {
+  id      String  @id @default(cuid())
+  nichoId String
+  nicho   Nicho   @relation(fields: [nichoId], references: [id])
+  userId  String?
+  user    User?   @relation(fields: [userId], references: [id])
+
+  nome   String
+  tipo   String @default("afiliado")
+  status String @default("ativo")
+
+  // Campos de afiliado (opcionais)
+  linkProduto      String?
+  linkAfiliado     String?
+  preco            Float?
+  comissaoEstimada Float?
+  plataformaOrigem String?
+
+  // Campos gerais
+  descricao          String?
+  publicoAlvo        String?
+  dorQueResolve      String?
+  beneficioPrincipal String?
+  observacoes        String?
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  conteudos Conteudo[]
+}
+
+// ─────────────────────────────────────────────
+// CONTEUDO — substitui "Video"
+// Uma peça de conteúdo que pode ser publicada
+// em múltiplas plataformas com status independentes
+//
+// status (pipeline de aprovação):
+//   rascunho | gerando | revisao | aprovado | pausado
+// ─────────────────────────────────────────────
+model Conteudo {
+  id        String  @id @default(cuid())
+  projetoId String
+  projeto   Projeto @relation(fields: [projetoId], references: [id], onDelete: Cascade)
+  userId    String?
+  user      User?   @relation(fields: [userId], references: [id])
+
+  tituloInterno String
+  status        String @default("rascunho")
+
+  // Conteúdo textual
+  hook     String?
+  roteiro  String?
+  legenda  String?
+  hashtags String?
+
+  // Mídia gerada (URLs → Supabase Storage)
+  imagemUrl    String?
+  audioUrl     String?
+  videoUrl     String?
+  thumbnailUrl String?
+
+  // Rastreabilidade da geração com IA
+  promptUsado String?
+  modeloIA    String?
+  geradoEm    DateTime?
+
+  observacoes String?
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  publicacoes PublicacaoPlataforma[]
+  jobsIA      JobIA[]
+}
+
+// ─────────────────────────────────────────────
+// PUBLICACAO POR PLATAFORMA
+// 1 Conteudo → N PublicacaoPlataforma
+// Cada plataforma tem status, agendamento e
+// métricas independentes
+//
+// plataforma: tiktok | instagram | youtube | shopee | mercadolivre
+//
+// status (pipeline de publicação):
+//   pendente | agendado | publicando | publicado | falhou | cancelado
+// ─────────────────────────────────────────────
+model PublicacaoPlataforma {
+  id         String   @id @default(cuid())
+  conteudoId String
+  conteudo   Conteudo @relation(fields: [conteudoId], references: [id], onDelete: Cascade)
+
+  plataforma String
+  status     String @default("pendente")
+
+  // Agendamento
+  agendadoPara DateTime?
+
+  // Pós-publicação
+  publicadoEm    DateTime?
+  externalId     String?
+  urlPublicacao  String?
+  erroPublicacao String?
+
+  // Legenda/hashtags específicas desta plataforma
+  legendaCustom  String?
+  hashtagsCustom String?
+
+  // Métricas em JSON (flexível por plataforma)
+  metricas String?
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  @@unique([conteudoId, plataforma])
+}
+
+// ─────────────────────────────────────────────
+// JOB DE IA — rastreia geração assíncrona
+// tipo: roteiro | legenda | hashtags | imagem | audio | video
+// status: pendente | processando | concluido | falhou
+// ─────────────────────────────────────────────
+model JobIA {
+  id         String   @id @default(cuid())
+  conteudoId String
+  conteudo   Conteudo @relation(fields: [conteudoId], references: [id], onDelete: Cascade)
+
+  tipo   String
+  status String @default("pendente")
+
+  modelo        String?
+  promptEnviado String?
+  resultado     String?
+  erro          String?
+
+  iniciadoEm  DateTime?
+  concluidoEm DateTime?
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+}
+
+// ─────────────────────────────────────────────
+// PROMPT TEMPLATE — evolução de "Prompt"
+// Associado a nicho e/ou plataforma
+// Variáveis: {{produto}}, {{nicho}}, {{beneficio}}, etc.
+//
+// tipo: roteiro | legenda | hashtags | thumbnail | analise | video_ia
+// plataforma: null = universal
+// ─────────────────────────────────────────────
+model PromptTemplate {
+  id      String  @id @default(cuid())
+  nichoId String?
+  nicho   Nicho?  @relation(fields: [nichoId], references: [id])
+
+  titulo     String
+  tipo       String
+  plataforma String?
+
+  conteudo String
+  ativo    Boolean @default(true)
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+}
