@@ -1,4 +1,5 @@
 import { prisma } from '@/lib/prisma'
+import Link from 'next/link'
 import CopyPromptButton from './CopyPromptButton'
 
 const TIPO_META: Record<string, { label: string; icon: string; cls: string }> = {
@@ -30,6 +31,7 @@ export default async function PromptsPage() {
           <h1 className="page-title">Biblioteca de Prompts</h1>
           <p className="page-subtitle">Templates prontos para gerar conteúdo com IA — use variáveis como {`{{produto}}`}, {`{{preco}}`}</p>
         </div>
+        <Link href="/prompts/novo" className="btn-primary">+ Novo Template</Link>
       </div>
 
       {templates.length === 0 ? (
@@ -55,7 +57,10 @@ export default async function PromptsPage() {
                     <div key={t.id} className="card p-5">
                       <div className="flex items-start justify-between gap-4 mb-2">
                         <div>
-                          <h3 className="font-medium text-gray-900">{t.titulo}</h3>
+                          <div className="flex items-center gap-2">
+                            <h3 className="font-medium text-gray-900">{t.titulo}</h3>
+                            <Link href={`/prompts/${t.id}`} className="text-xs text-indigo-600 hover:underline">Editar</Link>
+                          </div>
                           <div className="flex items-center gap-2 mt-1">
                             {t.plataforma && (
                               <span className="badge bg-slate-100 text-slate-600">{t.plataforma}</span>

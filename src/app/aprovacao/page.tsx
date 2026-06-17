@@ -1,11 +1,23 @@
 import { prisma } from '@/lib/prisma'
 import Link from 'next/link'
+import { Suspense } from 'react'
 import AprovacaoCard from './AprovacaoCard'
+import FilterBar from './FilterBar'
 
-export default async function AprovacaoPage() {
-  const [fila, totalAprovados] = await Promise.all([
+export default async function AprovacaoPage({
+  searchParams,
+}: {
+  searchParams: { nicho?: string; plataforma?: string }
+}) {
+  const { nicho, plataforma } = searchParams
+
+  const [fila, totalAprovados, nichos] = await Promise.all([
     prisma.conteudo.findMany({
-      where: { status: 'revisao' },
+      where: {
+        status: 'revisao',
+        ...(nicho ? { projeto: { nicho: { nome: nicho } } } : {}),
+        ...(plataforma ? { publicacoes: { some: { plataforma } } } : {}),
+      },
       orderBy: { updatedAt: 'asc' },
       include: {
         projeto: {
@@ -19,6 +31,11 @@ export default async function AprovacaoPage() {
       },
     }),
     prisma.conteudo.count({ where: { status: 'aprovado' } }),
+    prisma.nicho.findMany({
+      where: { ativo: true },
+      orderBy: { nome: 'asc' },
+      select: { id: true, nome: true, icone: true },
+    }),
   ])
 
   return (
@@ -30,7 +47,12 @@ export default async function AprovacaoPage() {
             {fila.length} aguardando revisão · {totalAprovados} aprovado{totalAprovados !== 1 ? 's' : ''}
           </p>
         </div>
-        <Link href="/conteudos" className="btn-secondary">Ver todos</Link>
+        <div className="flex items-center gap-3 flex-wrap">
+          <Suspense>
+            <FilterBar nichos={nichos} />
+          </Suspense>
+          <Link href="/conteudos" className="btn-secondary">Ver todos</Link>
+        </div>
       </div>
 
       {fila.length === 0 ? (

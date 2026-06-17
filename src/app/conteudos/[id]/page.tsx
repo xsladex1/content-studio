@@ -2,6 +2,9 @@ import { prisma } from '@/lib/prisma'
 import Link from 'next/link'
 import { notFound } from 'next/navigation'
 import EditConteudoForm from './EditConteudoForm'
+import GerarIAButtons from './GerarIAButtons'
+import MediaPreview from '@/components/MediaPreview'
+import AgendarPublicacao from './AgendarPublicacao'
 
 const STATUS_CONTEUDO: Record<string, { label: string; cls: string }> = {
   rascunho: { label: 'Rascunho', cls: 'bg-gray-100 text-gray-600' },
@@ -32,13 +35,29 @@ export default async function ConteudoDetailPage({ params }: { params: { id: str
   const conteudo = await prisma.conteudo.findUnique({
     where: { id: params.id },
     include: {
-      projeto: { include: { nicho: { select: { nome: true, icone: true } } } },
+      projeto: { include: { nicho: { select: { id: true, nome: true, icone: true } } } },
       publicacoes: { orderBy: { plataforma: 'asc' } },
       jobsIA: { orderBy: { createdAt: 'desc' }, take: 5 },
     },
   })
 
   if (!conteudo) notFound()
+
+  const plataformaAlvo = conteudo.publicacoes[0]?.plataforma ?? null
+  const templates = await prisma.promptTemplate.findMany({
+    where: {
+      ativo: true,
+      tipo: 'roteiro',
+      OR: [
+        { nichoId: conteudo.projeto.nichoId, plataforma: plataformaAlvo },
+        { nichoId: conteudo.projeto.nichoId, plataforma: null },
+        { nichoId: null, plataforma: plataformaAlvo },
+        { nichoId: null, plataforma: null },
+      ],
+    },
+    select: { id: true, titulo: true, tipo: true, plataforma: true },
+    orderBy: { titulo: 'asc' },
+  })
 
   const st = STATUS_CONTEUDO[conteudo.status] ?? STATUS_CONTEUDO.rascunho
 
@@ -142,25 +161,86 @@ export default async function ConteudoDetailPage({ params }: { params: { id: str
 
           {/* Mídia */}
           {(conteudo.videoUrl || conteudo.imagemUrl || conteudo.audioUrl) && (
-            <div className="card p-5 space-y-3">
-              <p className="text-xs font-semibold text-gray-500 uppercase tracking-wider">Mídia</p>
+            <div className="card p-5 space-y-4">
+              <p className="text-xs font-semibold text-gray-500 uppercase tracking-wider">Mídia gerada</p>
+
+              {/* Player de vídeo */}
               {conteudo.videoUrl && (
                 <div>
-                  <p className="text-xs text-gray-400 mb-1">Vídeo</p>
-                  <a href={conteudo.videoUrl} target="_blank" rel="noopener noreferrer"
-                    className="text-sm text-indigo-600 hover:underline">{conteudo.videoUrl}</a>
+                  <div className="flex items-center justify-between mb-1">
+                    <p className="text-xs text-gray-400">Vídeo</p>
+                    <a href={conteudo.videoUrl} download
+                      className="text-xs text-indigo-600 hover:underline">⬇ Download</a>
+                  </div>
+                  <video
+                    controls
+                    src={conteudo.videoUrl}
+                    className="w-full rounded-lg border border-gray-200"
+                    style={{ maxHeight: '320px' }}
+                  />
                 </div>
               )}
+
+              {/* Imagem */}
               {conteudo.imagemUrl && (
                 <div>
-                  <p className="text-xs text-gray-400 mb-1">Imagem</p>
-                  <img src={conteudo.imagemUrl} alt="Imagem do conteúdo" className="rounded-lg max-h-48 object-cover border border-gray-200" />
+                  <div className="flex items-center justify-between mb-1">
+                    <p className="text-xs text-gray-400">Imagem</p>
+                    <a href={conteudo.imagemUrl} download target="_blank" rel="noopener noreferrer"
+                      className="text-xs text-indigo-600 hover:underline">⬇ Download</a>
+                  </div>
+                  {/* eslint-disable-next-line @next/next/no-img-element */}
+                  <img
+                    src={conteudo.imagemUrl}
+                    alt="Imagem do conteúdo"
+                    className="rounded-lg max-h-52 w-full object-cover border border-gray-200"
+                  />
                 </div>
               )}
+
+              {/* Áudio */}
               {conteudo.audioUrl && (
                 <div>
-                  <p className="text-xs text-gray-400 mb-1">Áudio</p>
+                  <div className="flex items-center justify-between mb-1">
+                    <p className="text-xs text-gray-400">Narração</p>
+                    <a href={conteudo.audioUrl} download target="_blank" rel="noopener noreferrer"
+                      className="text-xs text-indigo-600 hover:underline">⬇ Download</a>
+                  </div>
                   <audio controls src={conteudo.audioUrl} className="w-full" />
+                </div>
+              )}
+
+              {/* Export CapCut */}
+              {(conteudo.imagemUrl || conteudo.audioUrl) && (
+                <div className="bg-orange-50 border border-orange-200 rounded-lg p-3">
+                  <p className="text-xs font-semibold text-orange-700 mb-1.5">📱 Exportar para CapCut</p>
+                  <p className="text-xs text-orange-600 mb-2">
+                    Baixe os assets abaixo e importe no CapCut para editar o vídeo final.
+                  </p>
+                  <div className="flex flex-wrap gap-2">
+                    {conteudo.imagemUrl && (
+                      <a
+                        href={conteudo.imagemUrl}
+                        download
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className="text-xs bg-orange-600 hover:bg-orange-700 text-white px-3 py-1.5 rounded-lg transition-colors"
+                      >
+                        🖼️ Baixar imagem
+                      </a>
+                    )}
+                    {conteudo.audioUrl && (
+                      <a
+                        href={conteudo.audioUrl}
+                        download
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className="text-xs bg-orange-600 hover:bg-orange-700 text-white px-3 py-1.5 rounded-lg transition-colors"
+                      >
+                        🎙️ Baixar narração
+                      </a>
+                    )}
+                  </div>
                 </div>
               )}
             </div>
@@ -192,10 +272,54 @@ export default async function ConteudoDetailPage({ params }: { params: { id: str
           )}
         </div>
 
-        {/* Painel lateral de edição */}
-        <div className="card p-5">
-          <p className="font-semibold text-gray-900 text-sm mb-4">Editar Conteúdo</p>
-          <EditConteudoForm conteudo={conteudo} />
+        {/* Painel lateral */}
+        <div className="space-y-4">
+          {/* Botões de geração com IA */}
+          <div className="card p-5">
+            <GerarIAButtons
+              conteudoId={conteudo.id}
+              plataforma={conteudo.publicacoes[0]?.plataforma}
+              nichoId={conteudo.projeto.nichoId}
+              templates={templates}
+              hook={conteudo.hook}
+              roteiro={conteudo.roteiro}
+              legenda={conteudo.legenda}
+              hashtags={conteudo.hashtags}
+              imagemUrl={conteudo.imagemUrl}
+              audioUrl={conteudo.audioUrl}
+            />
+          </div>
+
+          {/* Agendamento de publicação */}
+          {conteudo.publicacoes.length > 0 && (
+            <div className="card p-5">
+              <AgendarPublicacao
+                publicacoes={conteudo.publicacoes}
+                conteudoAprovado={conteudo.status === 'aprovado'}
+              />
+            </div>
+          )}
+
+          {/* Preview da plataforma */}
+          {conteudo.imagemUrl && conteudo.publicacoes[0] && (
+            <div className="card p-5">
+              <p className="text-xs font-semibold text-gray-500 uppercase tracking-wider mb-4">
+                Preview — {conteudo.publicacoes[0].plataforma}
+              </p>
+              <MediaPreview
+                plataforma={conteudo.publicacoes[0].plataforma}
+                imagemUrl={conteudo.imagemUrl}
+                hook={conteudo.hook}
+                titulo={conteudo.tituloInterno}
+              />
+            </div>
+          )}
+
+          {/* Edição manual */}
+          <div className="card p-5">
+            <p className="font-semibold text-gray-900 text-sm mb-4">Editar Conteúdo</p>
+            <EditConteudoForm conteudo={conteudo} />
+          </div>
         </div>
       </div>
     </div>

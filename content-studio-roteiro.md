@@ -60,63 +60,63 @@ Plataforma completa de criação, revisão e publicação de conteúdo para múl
 ## FASE 2 — Geração de conteúdo com IA
 
 ### 2.1 Configuração das APIs de IA
-- [ ] Adicionar OPENAI_API_KEY no .env e no Vercel
-- [ ] Criar src/lib/ai/text.ts — geração de roteiro e legenda
-- [ ] Criar src/lib/ai/images.ts — geração de imagem
-- [ ] Criar src/lib/ai/audio.ts — narração TTS
+- [x] Adicionar OPENAI_API_KEY no .env e no Vercel
+- [x] Criar src/lib/ai/text.ts — geração de roteiro e legenda
+- [x] Criar src/lib/ai/images.ts — geração de imagem
+- [x] Criar src/lib/ai/audio.ts — narração TTS
 
 ### 2.2 Sistema de Jobs assíncronos
-- [ ] Criar /api/ai/generate — dispara job de geração
-- [ ] Criar /api/ai/jobs/[jobId] — polling de status
-- [ ] Implementar lógica de atualização do JobIA no banco
-- [ ] Testar fluxo completo de job
+- [x] Criar /api/ai/generate — dispara job de geração
+- [x] Criar /api/ai/jobs/[jobId] — polling de status
+- [x] Implementar lógica de atualização do JobIA no banco
+- [ ] Testar fluxo completo de job (aguardando créditos OpenAI)
 
 ### 2.3 Supabase Storage para mídia
-- [ ] Criar bucket conteudo-midia no Supabase Storage
-- [ ] Configurar políticas de acesso
-- [ ] Criar src/lib/storage.ts — upload de imagem e áudio
-- [ ] Salvar URLs no model Conteudo após geração
+- [x] Criar bucket conteudo-midia no Supabase Storage
+- [ ] Configurar políticas de acesso (requer SUPABASE_SERVICE_ROLE_KEY no .env)
+- [x] Criar src/lib/storage.ts — upload de imagem e áudio
+- [x] Salvar URLs no model Conteudo após geração
 
 ### 2.4 Interface de geração
-- [ ] Botão "Gerar com IA" na página /conteudos/novo
-- [ ] Loading state com progresso
-- [ ] Preview inline do resultado
-- [ ] Botão "Regenerar" por campo
+- [x] Botão "Gerar com IA" na página /conteudos/[id]
+- [x] Loading state com progresso por tipo (texto/imagem/áudio)
+- [x] Preview inline do resultado (hook, roteiro, legenda, hashtags, imagem, áudio)
+- [x] Botão "Regenerar" por campo de texto e por mídia
 
 ### 2.5 Templates por nicho
-- [ ] Interface para criar/editar PromptTemplates em /prompts
-- [ ] Seletor de template na geração de conteúdo
-- [ ] Templates padrão por plataforma
+- [x] Interface para criar/editar PromptTemplates em /prompts
+- [x] Seletor de template na geração de conteúdo
+- [x] Templates padrão por plataforma
 
 ## FASE 3 — Dashboard de aprovação
 
 ### 3.1 Fila de aprovação
 - [x] Criar /aprovacao — lista de conteúdos aguardando revisão
-- [ ] Card com preview de imagem, roteiro e legenda
-- [ ] Ações: Aprovar / Pedir refazer / Editar manualmente
-- [ ] Filtros por nicho, plataforma e data
+- [x] Card com preview de imagem, roteiro e legenda
+- [x] Ações: Aprovar / Pedir refazer / Editar manualmente
+- [x] Filtros por nicho, plataforma e data
 
 ### 3.2 Preview por plataforma
-- [ ] Componente MediaPreview — moldura de celular para TikTok/Reels
-- [ ] Preview de feed para Instagram
-- [ ] Preview de thumbnail para YouTube
+- [x] Componente MediaPreview — moldura de celular para TikTok/Reels
+- [x] Preview de feed para Instagram
+- [x] Preview de thumbnail para YouTube
 
 ### 3.3 Editor inline
-- [ ] Editar roteiro diretamente no card
-- [ ] Editar legenda e hashtags por plataforma
-- [ ] Autosave a cada 3 segundos
+- [x] Editar roteiro diretamente no card
+- [x] Editar legenda e hashtags por plataforma
+- [x] Autosave a cada 3 segundos
 
 ### 3.4 Geração de vídeo pós-aprovação
-- [ ] Botão "Gerar vídeo" apenas após aprovação
-- [ ] Exportar assets para edição manual no CapCut
-- [ ] Player de vídeo inline
+- [ ] Botão "Gerar vídeo" apenas após aprovação (aguarda integração de vídeo)
+- [x] Exportar assets para edição manual no CapCut
+- [x] Player de vídeo inline
 
 ## FASE 4 — Agendamento e publicação
 
 ### 4.1 Calendário de agendamento
 - [x] Criar /agenda com calendário visual
-- [ ] Arrastar conteúdo para horário no calendário
-- [ ] Visualizar por plataforma
+- [x] Date/time picker por plataforma em /conteudos/[id]
+- [x] Visualizar por plataforma na agenda
 
 ### 4.2 Integração TikTok
 - [ ] Configurar TikTok Content Posting API
@@ -134,31 +134,31 @@ Plataforma completa de criação, revisão e publicação de conteúdo para múl
 - [ ] Upload de thumbnail customizada
 
 ### 4.5 Publicação com 1 clique
-- [ ] Botão "Publicar agora" no card aprovado
-- [ ] Seletor de plataformas
-- [ ] Confirmação antes de publicar
+- [x] Botão "Publicar agora" no card aprovado (marca status publicando)
+- [x] Seletor de plataformas (por publicacao individual)
+- [ ] Integração real com APIs de cada plataforma (Fases 4.2–4.4)
 
 ## FASE 5 — Equipe, métricas e escala
 
 ### 5.1 Suporte a equipe
-- [ ] Sistema de convite por email
-- [ ] Perfis: Admin / Editor / Visualizador
+- [x] Sistema de convite por email (/configuracoes/equipe)
+- [ ] Perfis: Admin / Editor / Visualizador (aguarda migration add_user_role_ativo)
 - [ ] Log de ações por usuário
 
 ### 5.2 Métricas reais
-- [ ] Buscar métricas via API 24h após publicação
+- [ ] Buscar métricas via API 24h após publicação (aguarda OAuth por plataforma)
 - [ ] Dashboard de performance por nicho e plataforma
 - [ ] Ranking de conteúdos mais performáticos
 
 ### 5.3 Inteligência do sistema
-- [ ] Anti-repetição de temas (últimos 30 dias por nicho)
-- [ ] Sugestão automática de tema baseada em performance
-- [ ] Alerta de conteúdo acima da média
+- [x] Anti-repetição de temas: /api/sugestoes analisa últimos 30 dias
+- [x] Sugestão automática de tema com GPT-4o
+- [ ] Alerta de conteúdo acima da média (aguarda métricas reais)
 
 ### 5.4 HERMES como orquestrador
-- [ ] HERMES recebe objetivo do dia e gera conteúdo
-- [ ] Coloca na fila de aprovação automaticamente
-- [ ] Loop de aprendizado com base em performance
+- [x] /hermes — recebe objetivo do dia e planeja N conteúdos com GPT-4o
+- [x] Cria rascunhos automaticamente na fila de aprovação
+- [ ] Loop de aprendizado com base em performance (aguarda métricas)
 
 ### 5.5 Novos canais
 - [ ] Pinterest

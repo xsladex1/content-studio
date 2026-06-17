@@ -29,21 +29,23 @@ export async function PUT(
 ) {
   const body = await request.json()
 
+  // Only update fields that are explicitly present in the body
+  const data: Record<string, unknown> = {}
+  if (body.tituloInterno !== undefined) data.tituloInterno = body.tituloInterno
+  if (body.status       !== undefined) data.status        = body.status
+  if (body.hook         !== undefined) data.hook          = body.hook
+  if (body.roteiro      !== undefined) data.roteiro       = body.roteiro
+  if (body.legenda      !== undefined) data.legenda       = body.legenda
+  if (body.hashtags     !== undefined) data.hashtags      = body.hashtags
+  if (body.imagemUrl    !== undefined) data.imagemUrl     = body.imagemUrl
+  if (body.audioUrl     !== undefined) data.audioUrl      = body.audioUrl
+  if (body.videoUrl     !== undefined) data.videoUrl      = body.videoUrl
+  if (body.thumbnailUrl !== undefined) data.thumbnailUrl  = body.thumbnailUrl
+  if (body.observacoes  !== undefined) data.observacoes   = body.observacoes
+
   const conteudo = await prisma.conteudo.update({
     where: { id: params.id },
-    data: {
-      tituloInterno: body.tituloInterno,
-      status: body.status,
-      hook: body.hook ?? null,
-      roteiro: body.roteiro ?? null,
-      legenda: body.legenda ?? null,
-      hashtags: body.hashtags ?? null,
-      imagemUrl: body.imagemUrl ?? null,
-      audioUrl: body.audioUrl ?? null,
-      videoUrl: body.videoUrl ?? null,
-      thumbnailUrl: body.thumbnailUrl ?? null,
-      observacoes: body.observacoes ?? null,
-    },
+    data,
     include: {
       publicacoes: { orderBy: { plataforma: 'asc' } },
     },

@@ -20,8 +20,9 @@ const groups = [
   {
     label: 'Pipeline',
     items: [
+      { href: '/hermes',   label: 'HERMES',    icon: '⚡' },
       { href: '/aprovacao', label: 'Aprovação', icon: '✅' },
-      { href: '/agenda', label: 'Agenda', icon: '📅' },
+      { href: '/agenda',    label: 'Agenda',    icon: '📅' },
     ],
   },
   {
@@ -29,6 +30,12 @@ const groups = [
     items: [
       { href: '/prompts', label: 'Prompts', icon: '💡' },
       { href: '/relatorios', label: 'Relatórios', icon: '📈' },
+    ],
+  },
+  {
+    label: 'Configurações',
+    items: [
+      { href: '/configuracoes/equipe', label: 'Equipe', icon: '👥' },
     ],
   },
 ]
@@ -73,7 +80,7 @@ export default function Sidebar() {
                       : 'text-slate-400 hover:text-white hover:bg-slate-800'
                   }`}
                 >
-                  <span className="text-base">{item.icon}</span>
+                  <span className="text-base" suppressHydrationWarning>{item.icon}</span>
                   {item.label}
                 </Link>
               ))}
