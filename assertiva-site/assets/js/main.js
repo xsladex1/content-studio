@@ -171,7 +171,6 @@ if(navToggle && nav){
 *Telefone/WhatsApp:* ${d.get('telefone')}
 *E-mail:* ${d.get('email') || '—'}
 *Cidade:* ${d.get('cidade')}
-*Colaboradores desejados:* ${d.get('colaboradores') || '—'}
 *Serviço desejado:* ${d.get('servico')}`;
 
     window.open("https://wa.me/"+CONFIG.whatsapp+"?text="+encodeURIComponent(msg), "_blank", "noopener");
