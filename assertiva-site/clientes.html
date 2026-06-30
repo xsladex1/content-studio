@@ -1,0 +1,209 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Nossos Clientes | Assertiva Gestão & Facilities</title>
+<meta name="description" content="Empresas, indústrias e condomínios que confiam na terceirização de serviços da Assertiva Gestão & Facilities. Conheça os segmentos que atendemos.">
+<meta name="theme-color" content="#0C0C0C">
+<meta name="robots" content="index, follow">
+<link rel="canonical" href="https://www.assertiva.com.br/clientes.html">
+
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="Assertiva Gestão & Facilities">
+<meta property="og:title" content="Nossos Clientes | Assertiva Gestão & Facilities">
+<meta property="og:description" content="Empresas, indústrias e condomínios que confiam na Assertiva.">
+<meta property="og:locale" content="pt_BR">
+<meta property="og:image" content="https://www.assertiva.com.br/assets/img/servico-recepcao.jpg">
+
+<link rel="icon" type="image/svg+xml" href="assets/img/favicon.svg">
+<link rel="icon" type="image/png" sizes="32x32" href="assets/img/favicon-32.png">
+<link rel="shortcut icon" href="assets/img/favicon.ico">
+<link rel="apple-touch-icon" href="assets/img/apple-touch-icon.png">
+<link rel="manifest" href="site.webmanifest">
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Archivo:wght@500;700;800;900&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="assets/css/styles.css">
+
+<script type="application/ld+json">
+{
+  "@context":"https://schema.org",
+  "@type":"BreadcrumbList",
+  "itemListElement":[
+    {"@type":"ListItem","position":1,"name":"Início","item":"https://www.assertiva.com.br/"},
+    {"@type":"ListItem","position":2,"name":"Clientes","item":"https://www.assertiva.com.br/clientes.html"}
+  ]
+}
+</script>
+</head>
+<body>
+<a href="#cli-grid" class="skip-link">Pular para o conteúdo</a>
+
+<!-- ======================= HEADER ======================= -->
+<header class="header scrolled" id="topo">
+  <div class="container header__inner">
+    <a href="index.html" class="brand" aria-label="Assertiva Gestão e Facilities — início">
+      <img src="assets/img/logo-assertiva.png" alt="Assertiva Gestão e Facilities" width="180" height="34">
+    </a>
+    <nav class="nav" aria-label="Menu principal">
+      <a href="index.html#solucoes">Soluções</a>
+      <a href="index.html#como-funciona">Como funciona</a>
+      <a href="index.html#quem-somos">Quem somos</a>
+      <a href="index.html#segmentos">Segmentos</a>
+      <a href="clientes.html" aria-current="page">Clientes</a>
+      <a href="index.html#orcamento">Orçamento</a>
+    </nav>
+    <div class="header__cta">
+      <a href="#" class="btn btn--ghost" data-wa>Falar no WhatsApp</a>
+      <a href="index.html#orcamento" class="btn btn--primary">Orçamento</a>
+    </div>
+    <button class="nav-toggle" aria-label="Abrir menu" aria-expanded="false" aria-controls="menu">
+      <span></span><span></span><span></span>
+    </button>
+  </div>
+</header>
+
+<main>
+<!-- ======================= PAGE HEAD ======================= -->
+<section class="page-head">
+  <div class="container">
+    <nav class="breadcrumb" aria-label="Você está em"><a href="index.html">Início</a> / Clientes</nav>
+    <span class="eyebrow">Nossos clientes</span>
+    <h1>Operações que confiam na Assertiva</h1>
+    <p>Empresas, indústrias e condomínios que escolheram a terceirização profissional com supervisão contínua. Conforme novos contratos são firmados — e com a devida autorização — esta página apresentará nossos clientes parceiros.</p>
+  </div>
+</section>
+
+<!-- ======================= CLIENTES (estrutura dinâmica) ======================= -->
+<section class="section" style="padding-top:40px">
+  <div class="container">
+    <div class="cli-toolbar">
+      <div class="cli-search">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="7"/><path d="m21 21-4.3-4.3" stroke-linecap="round"/></svg>
+        <input id="cli-search-input" type="search" placeholder="Buscar cliente, segmento ou cidade…" aria-label="Buscar cliente">
+      </div>
+      <div class="cli-chips" id="cli-chips" role="group" aria-label="Filtrar por segmento"></div>
+    </div>
+    <p class="cli-count" id="cli-count" aria-live="polite"></p>
+    <div class="cli-grid" id="cli-grid"><!-- cards renderizados via clientes.js --></div>
+    <noscript>
+      <div class="cli-empty">
+        <h3>Em breve, nossos clientes aqui</h3>
+        <p>Estamos construindo uma base de clientes parceiros. Em breve, empresas e condomínios que confiam na Assertiva aparecerão nesta página.</p>
+        <a href="index.html#orcamento" class="btn btn--primary btn--lg">Quero ser um cliente Assertiva</a>
+      </div>
+    </noscript>
+  </div>
+</section>
+
+<!-- ======================= CTA ======================= -->
+<section class="section" style="padding-top:0">
+  <div class="container">
+    <div class="cta-band reveal">
+      <span class="eyebrow center" style="justify-content:center">Vamos crescer juntos</span>
+      <h2>Quer fazer parte dos clientes Assertiva?</h2>
+      <p>Receba um diagnóstico gratuito e uma proposta sob medida para a sua operação.</p>
+      <div class="btns">
+        <a href="#" class="btn btn--wa btn--lg" data-wa>Falar com especialista</a>
+        <a href="index.html#orcamento" class="btn btn--ghost btn--lg">Solicitar orçamento</a>
+      </div>
+    </div>
+  </div>
+</section>
+</main>
+
+<!-- ======================= FOOTER ======================= -->
+<footer class="footer">
+  <div class="container">
+    <div class="footer__grid">
+      <div class="footer__brand">
+        <img src="assets/img/logo-assertiva.png" alt="Assertiva Gestão e Facilities" width="180" height="34">
+        <p>Terceirização com supervisão contínua: portaria, limpeza, recepção, apoio operacional e facilities para empresas, indústrias e condomínios.</p>
+        <div class="socials">
+          <a data-social="instagram" aria-label="Instagram"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2.2c3.2 0 3.6 0 4.9.07 1.17.05 1.8.25 2.23.41.56.22.96.48 1.38.9.42.42.68.82.9 1.38.16.42.36 1.06.41 2.23.06 1.27.07 1.65.07 4.86s0 3.6-.07 4.86c-.05 1.17-.25 1.8-.41 2.23-.22.56-.48.96-.9 1.38-.42.42-.82.68-1.38.9-.42.16-1.06.36-2.23.41-1.27.06-1.65.07-4.9.07s-3.63 0-4.9-.07c-1.17-.05-1.8-.25-2.23-.41a3.7 3.7 0 0 1-1.38-.9 3.7 3.7 0 0 1-.9-1.38c-.16-.42-.36-1.06-.41-2.23C2.2 15.6 2.2 15.2 2.2 12s0-3.6.07-4.86c.05-1.17.25-1.8.41-2.23.22-.56.48-.96.9-1.38.42-.42.82-.68 1.38-.9.42-.16 1.06-.36 2.23-.41C8.4 2.2 8.8 2.2 12 2.2Zm0 1.8c-3.15 0-3.5 0-4.74.07-.9.04-1.38.19-1.7.32-.43.16-.74.36-1.06.68-.32.32-.52.63-.68 1.06-.13.32-.28.8-.32 1.7C3.43 9.05 3.4 9.4 3.4 12s0 2.95.07 4.74c.04.9.19 1.38.32 1.7.16.43.36.74.68 1.06.32.32.63.52 1.06.68.32.13.8.28 1.7.32 1.24.06 1.59.07 4.74.07s3.5 0 4.74-.07c.9-.04 1.38-.19 1.7-.32.43-.16.74-.36 1.06-.68.32-.32.52-.63.68-1.06.13-.32.28-.8.32-1.7.06-1.24.07-1.59.07-4.74s0-2.95-.07-4.74c-.04-.9-.19-1.38-.32-1.7a2.85 2.85 0 0 0-.68-1.06 2.85 2.85 0 0 0-1.06-.68c-.32-.13-.8-.28-1.7-.32C15.5 4 15.15 4 12 4Zm0 3.06A4.94 4.94 0 1 0 12 17a4.94 4.94 0 0 0 0-9.88Zm0 8.14A3.2 3.2 0 1 1 12 8.8a3.2 3.2 0 0 1 0 6.4Zm6.3-8.34a1.15 1.15 0 1 1-2.3 0 1.15 1.15 0 0 1 2.3 0Z"/></svg></a>
+          <a data-social="facebook" aria-label="Facebook"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M22 12a10 10 0 1 0-11.56 9.88v-6.99H7.9V12h2.54V9.8c0-2.5 1.49-3.89 3.78-3.89 1.09 0 2.24.2 2.24.2v2.46h-1.26c-1.24 0-1.63.77-1.63 1.56V12h2.78l-.44 2.89h-2.34v6.99A10 10 0 0 0 22 12Z"/></svg></a>
+          <a data-social="linkedin" aria-label="LinkedIn"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M20.45 20.45h-3.56v-5.57c0-1.33-.02-3.04-1.85-3.04-1.85 0-2.14 1.45-2.14 2.94v5.67H9.35V9h3.42v1.56h.05c.48-.9 1.64-1.85 3.37-1.85 3.6 0 4.27 2.37 4.27 5.46v6.28ZM5.34 7.43a2.07 2.07 0 1 1 0-4.14 2.07 2.07 0 0 1 0 4.14ZM7.12 20.45H3.55V9h3.57v11.45ZM22.22 0H1.77C.8 0 0 .78 0 1.74v20.5C0 23.22.8 24 1.77 24h20.45c.98 0 1.78-.78 1.78-1.76V1.74C24 .78 23.2 0 22.22 0Z"/></svg></a>
+          <a data-social="youtube" aria-label="YouTube"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M23.5 6.2a3 3 0 0 0-2.12-2.12C19.5 3.55 12 3.55 12 3.55s-7.5 0-9.38.53A3 3 0 0 0 .5 6.2 31.3 31.3 0 0 0 0 12a31.3 31.3 0 0 0 .5 5.8 3 3 0 0 0 2.12 2.12c1.88.53 9.38.53 9.38.53s7.5 0 9.38-.53a3 3 0 0 0 2.12-2.12A31.3 31.3 0 0 0 24 12a31.3 31.3 0 0 0-.5-5.8ZM9.6 15.6V8.4l6.2 3.6-6.2 3.6Z"/></svg></a>
+        </div>
+      </div>
+      <div>
+        <h4>Soluções</h4>
+        <ul>
+          <li><a href="index.html#solucoes">Portaria e controle de acesso</a></li>
+          <li><a href="index.html#solucoes">Limpeza profissional</a></li>
+          <li><a href="index.html#solucoes">Recepção</a></li>
+          <li><a href="index.html#solucoes">Apoio operacional</a></li>
+          <li><a href="index.html#solucoes">Zeladoria e manutenção</a></li>
+        </ul>
+      </div>
+      <div>
+        <h4>Empresa</h4>
+        <ul>
+          <li><a href="index.html#quem-somos">Quem somos</a></li>
+          <li><a href="index.html#como-funciona">Como funciona</a></li>
+          <li><a href="index.html#segmentos">Segmentos que atendemos</a></li>
+          <li><a href="clientes.html">Clientes</a></li>
+          <li><a href="index.html#faq">Perguntas frequentes</a></li>
+          <li><a href="index.html#orcamento">Orçamento</a></li>
+        </ul>
+      </div>
+      <div>
+        <h4>Contato</h4>
+        <ul class="footer__contact">
+          <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20 10c0 6-8 12-8 12s-8-6-8-12a8 8 0 0 1 16 0Z"/><circle cx="12" cy="10" r="3"/></svg><span data-city-text>São Paulo / SP</span></li>
+          <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.8 19.8 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.8 19.8 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72c.13.96.36 1.9.7 2.81a2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45c.9.34 1.85.57 2.81.7A2 2 0 0 1 22 16.92Z"/></svg><a href="#" data-wa><span data-phone-text>(11) 99999-9999</span></a></li>
+          <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="2" y="4" width="20" height="16" rx="2"/><path d="m22 7-10 6L2 7"/></svg><a href="#" data-email><span data-email-text>comercial@assertiva.com.br</span></a></li>
+        </ul>
+      </div>
+    </div>
+    <div class="footer__bottom">
+      <p>© <span data-year>2026</span> Assertiva Gestão &amp; Facilities. Todos os direitos reservados.</p>
+      <div class="links">
+        <a href="privacidade.html">Política de Privacidade</a>
+        <a href="cookies.html">Política de Cookies</a>
+        <a href="termos.html">Termos de Uso</a>
+        <a href="#" data-open-cookies>Gerenciar cookies</a>
+      </div>
+    </div>
+  </div>
+</footer>
+
+<a class="float-wa" data-wa aria-label="Falar no WhatsApp">
+  <svg viewBox="0 0 24 24" fill="currentColor"><path d="M.057 24l1.687-6.163a11.867 11.867 0 0 1-1.587-5.946C.16 5.335 5.495 0 12.05 0a11.817 11.817 0 0 1 8.413 3.488 11.824 11.824 0 0 1 3.48 8.414c-.003 6.557-5.338 11.892-11.893 11.892a11.9 11.9 0 0 1-5.688-1.448L.057 24zm6.597-3.807c1.676.995 3.276 1.591 5.392 1.592 5.448 0 9.886-4.434 9.889-9.885.002-5.462-4.415-9.89-9.881-9.892-5.452 0-9.887 4.434-9.889 9.884a9.86 9.86 0 0 0 1.51 5.26l-.999 3.648 3.978-1.207zm11.387-5.464c-.074-.124-.272-.198-.57-.347-.297-.149-1.758-.868-2.031-.967-.272-.099-.47-.149-.669.149-.198.297-.768.967-.941 1.165-.173.198-.347.223-.644.074-.297-.149-1.255-.462-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.297-.347.446-.521.151-.172.2-.296.3-.495.099-.198.05-.372-.025-.521-.075-.148-.669-1.611-.916-2.206-.242-.579-.487-.501-.669-.51l-.57-.01c-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.626.712.226 1.36.194 1.872.118.571-.085 1.758-.719 2.006-1.413.248-.695.248-1.29.173-1.414z"/></svg>
+</a>
+
+<!-- ======================= COOKIE CONSENT (LGPD) ======================= -->
+<div class="cookie" id="cookie-banner" role="dialog" aria-live="polite" aria-label="Aviso de cookies">
+  <h4><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="9"/><path d="M8.5 9.5h.01M15 13h.01M10 15h.01" stroke-linecap="round"/></svg> Privacidade e cookies</h4>
+  <p>Usamos cookies essenciais para o funcionamento do site e, com o seu consentimento, cookies de análise para melhorar a sua experiência. Saiba mais na <a href="cookies.html">Política de Cookies</a> e na <a href="privacidade.html">Política de Privacidade</a> (LGPD).</p>
+  <div class="cookie__actions">
+    <button class="btn btn--primary" id="cookie-accept">Aceitar todos</button>
+    <button class="btn btn--mini-ghost" id="cookie-reject">Rejeitar</button>
+    <button class="btn btn--mini-ghost" id="cookie-config">Personalizar</button>
+  </div>
+</div>
+<div class="modal" id="cookie-modal" role="dialog" aria-modal="true" aria-label="Preferências de cookies">
+  <div class="modal__box">
+    <h3>Preferências de cookies</h3>
+    <p>Gerencie o uso de cookies neste site. Os cookies essenciais não podem ser desativados.</p>
+    <div class="pref">
+      <div><h5>Cookies essenciais</h5><p>Necessários para o funcionamento e a segurança do site.</p></div>
+      <label class="switch"><input type="checkbox" checked disabled><span class="slider"></span></label>
+    </div>
+    <div class="pref">
+      <div><h5>Cookies de análise</h5><p>Ajudam a entender como o site é usado para melhorá-lo. Só são ativados com seu consentimento.</p></div>
+      <label class="switch"><input type="checkbox" id="pref-analytics"><span class="slider"></span></label>
+    </div>
+    <div class="modal__actions">
+      <button class="btn btn--primary btn--block" id="cookie-save-prefs">Salvar preferências</button>
+      <button class="btn btn--mini-ghost" id="cookie-modal-close">Fechar</button>
+    </div>
+  </div>
+</div>
+
+<script src="assets/js/main.js" defer></script>
+<script src="assets/js/clientes.js" defer></script>
+</body>
+</html>

@@ -1,0 +1,73 @@
+==========================================================
+  ASSERTIVA — Como publicar na Vercel SEM usar Git
+==========================================================
+
+Você tem o arquivo "assertiva-site-vercel.zip".
+Dentro dele estão TODOS os arquivos do site (index.html, assets, etc.)
+já prontos, com o WhatsApp e o Instagram da Assertiva configurados.
+
+----------------------------------------------------------
+PASSO 0 — Descompacte o ZIP
+----------------------------------------------------------
+Clique com o botão direito no "assertiva-site-vercel.zip" e
+escolha "Extrair tudo". Você terá uma pasta com o site dentro
+(index.html deve aparecer logo na raiz da pasta).
+
+
+==========================================================
+  MÉTODO 1 — Vercel CLI (recomendado, sem Git)
+==========================================================
+Esse método envia a pasta direto para a Vercel pelo terminal.
+Precisa apenas do Node.js instalado (https://nodejs.org).
+
+1) Instale a CLI da Vercel (uma única vez):
+      npm install -g vercel
+
+2) Entre na pasta do site que você extraiu:
+      cd caminho/da/pasta/assertiva-site
+
+3) Faça o login (abre o navegador para confirmar):
+      vercel login
+
+4) Publique:
+      vercel
+
+   - Responda as perguntas apertando ENTER (pode aceitar os padrões).
+   - "Set up and deploy?" -> Y
+   - "Which scope?" -> sua conta
+   - "Link to existing project?" -> N
+   - "Project name?" -> assertiva (ou ENTER)
+   - "In which directory is your code located?" -> ./  (ENTER)
+
+5) Para publicar a versão final de produção:
+      vercel --prod
+
+   No fim, a Vercel mostra a URL do site (ex.: https://assertiva.vercel.app).
+
+
+==========================================================
+  MÉTODO 2 — Arrastar e soltar (Netlify Drop) — alternativa
+==========================================================
+A Vercel hoje publica sem Git apenas pela CLI (Método 1).
+Se quiser um "arrastar e soltar" 100% pelo navegador, sem terminal,
+a forma mais simples é o Netlify Drop (de graça):
+
+1) Acesse: https://app.netlify.com/drop
+2) Arraste a PASTA extraída (a que contém o index.html) para a área indicada.
+3) Pronto — o site fica no ar em segundos com uma URL gratuita.
+   (Depois dá para conectar seu domínio próprio nas configurações.)
+
+
+----------------------------------------------------------
+DEPOIS DE PUBLICAR — domínio próprio (opcional)
+----------------------------------------------------------
+Na Vercel: Project -> Settings -> Domains -> Add -> digite seu domínio
+e configure o DNS conforme as instruções (HTTPS é automático).
+
+
+----------------------------------------------------------
+QUER MUDAR ALGO DEPOIS?
+----------------------------------------------------------
+Telefone, e-mail, redes sociais: edite o bloco CONFIG no topo do
+arquivo  assets/js/main.js  e publique de novo (vercel --prod).
+==========================================================
