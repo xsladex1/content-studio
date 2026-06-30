@@ -147,29 +147,6 @@ if(navToggle && nav){
   setTimeout(()=>document.querySelectorAll('.reveal').forEach(e=>e.classList.add('in')), 2500);
 })();
 
-/* ---------- Contador de estatísticas ---------- */
-(function counters(){
-  const nums = document.querySelectorAll('[data-count]');
-  if(!nums.length || !('IntersectionObserver' in window)) return;
-  const io = new IntersectionObserver((entries)=>{
-    entries.forEach(en=>{
-      if(!en.isIntersecting) return;
-      const el = en.target;
-      const target = parseInt(el.dataset.count,10);
-      const suffix = el.dataset.suffix || '';
-      const prefix = el.dataset.prefix || '';
-      let cur = 0; const step = Math.max(1, Math.ceil(target/60));
-      const t = setInterval(()=>{
-        cur += step;
-        if(cur>=target){ cur=target; clearInterval(t); }
-        el.textContent = prefix + cur.toLocaleString('pt-BR') + suffix;
-      },24);
-      io.unobserve(el);
-    });
-  },{threshold:.4});
-  nums.forEach(n=>io.observe(n));
-})();
-
 /* ---------- Formulário -> WhatsApp ---------- */
 (function quoteForm(){
   const form = document.getElementById('quote-form');
