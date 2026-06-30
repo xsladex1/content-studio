@@ -8,15 +8,15 @@
    (Telefone no formato internacional, só números: 55 + DDD + número)
 */
 const CONFIG = {
-  whatsapp: "5511999999999",          // << TROCAR pelo WhatsApp comercial real
-  email: "comercial@assertiva.com.br", // << TROCAR pelo e-mail real
-  telefoneExibicao: "(11) 99999-9999", // << TROCAR (apenas exibição)
-  cidade: "São Paulo / SP",            // << TROCAR pela cidade-sede
+  whatsapp: "5511915292154",           // WhatsApp oficial da Assertiva (da LP)
+  email: "comercial@assertiva.com.br", // << TROCAR pelo e-mail real (não havia na LP)
+  telefoneExibicao: "(11) 91529-2154", // exibição do WhatsApp
+  cidade: "São Paulo / SP",            // << ajuste se necessário
   social: {
-    instagram: "https://instagram.com/",   // << TROCAR
-    facebook:  "https://facebook.com/",     // << TROCAR
-    linkedin:  "https://linkedin.com/",     // << TROCAR
-    youtube:   ""                            // opcional (deixe "" para ocultar)
+    instagram: "https://www.instagram.com/assertivagestaoefacilities", // Instagram da Assertiva (da LP)
+    facebook:  "",   // não informado na LP (deixe "" para ocultar)
+    linkedin:  "",   // não informado na LP (deixe "" para ocultar)
+    youtube:   ""    // não informado na LP (deixe "" para ocultar)
   }
 };
 
